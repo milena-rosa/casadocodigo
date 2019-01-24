@@ -41,7 +41,7 @@ public class JPAConfiguration {
 		properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
 		properties.setProperty("hibernate.show_sql", "true");
 		properties.setProperty("hibernate.hbm2ddl.auto", "create");
-		//propriedade para mostra o DDL gerado como log
+		//propriedade para mostrar o DDL gerado como log
 		properties.setProperty("javax.persistence.schema-generation.scripts.create-target", "db-schema.jpa.ddl");
 		return properties;
 	}
@@ -52,7 +52,7 @@ public class JPAConfiguration {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setUsername("casper");
 		dataSource.setPassword("");
-		dataSource.setUrl("jdbc:mysql://localhost/casadocodigo");
+		dataSource.setUrl("jdbc:mysql://localhost:3306/casadocodigo?useSSL=false");
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
 		return dataSource;
 	}

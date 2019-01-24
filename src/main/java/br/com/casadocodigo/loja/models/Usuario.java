@@ -21,13 +21,13 @@ public class Usuario implements UserDetails {
 
 	@Id
 	private String email;
-	private String senha;
 	private String nome;
 
+	private String senha;
+	private String senhaRepetida;
+
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "Usuario_Role",
-		joinColumns = @JoinColumn(name = "email"), 
-		inverseJoinColumns = @JoinColumn(name = "role_nome"))
+	@JoinTable(name = "Usuario_Role", joinColumns = @JoinColumn(name = "email"), inverseJoinColumns = @JoinColumn(name = "role_nome"))
 	private List<Role> roles = new ArrayList<>();
 
 	public String getEmail() {
@@ -77,6 +77,14 @@ public class Usuario implements UserDetails {
 		return this.email;
 	}
 
+	public String getSenhaRepetida() {
+		return senhaRepetida;
+	}
+
+	public void setSenhaRepetida(String senhaRepetida) {
+		this.senhaRepetida = senhaRepetida;
+	}
+
 	@Override
 	public boolean isAccountNonExpired() {
 		return true;
@@ -96,5 +104,39 @@ public class Usuario implements UserDetails {
 	public boolean isEnabled() {
 		return true;
 	}
-	
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+		result = prime * result + ((roles == null) ? 0 : roles.hashCode());
+		result = prime * result + ((senha == null) ? 0 : senha.hashCode());
+		result = prime * result + ((senhaRepetida == null) ? 0 : senhaRepetida.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Usuario other = (Usuario) obj;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Usuario [email=" + email + ", nome=" + nome + ", roles=" + roles + "]";
+	}
+
 }
